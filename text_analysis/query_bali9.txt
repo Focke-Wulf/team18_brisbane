@@ -1,0 +1,9 @@
+{
+ "from" : 0, "size" : 300,
+ "query": {
+    "query_string": {
+          "query": "bali9",
+          "fields": ["text"]
+      }
+ }
+}

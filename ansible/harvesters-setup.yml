@@ -1,0 +1,35 @@
+# ---------------------------------------------------------
+# Team 18 - Ansible Playbook (Harvester)
+# Members:
+#     - Shawn Fallon
+#     - Luke Jones
+#     - Ivan Sanchez
+#     - Pablo Serrano
+#     - Youhan Xia
+# Description:
+#   This playbook sets all the basics required to execute
+#  our harvester in an Ubuntu 12.04 virtual machine. The
+#  harvester was developed in python2 so all the
+#  dependencies have been installed to comply with this.
+# ---------------------------------------------------------
+- hosts: harvesters
+  remote_user: ubuntu
+  sudo: yes
+  tasks:
+    # -----------------------------------------------------
+    # update apt-get database
+    - name: apt-get update db
+      shell: sudo apt-get update
+      ignore_errors: True
+    # -----------------------------------------------------
+    # install twitter harvester
+    - name: install python pip
+      apt: pkg=python-pip state=installed
+    - name: check easy install
+      shell: easy_install -U pip
+    - name: install tweepy (pip)
+      shell: pip install tweepy
+    - name: install couchDB driver (pip)
+      shell: pip install CouchDB
+      # TODO: copy harvester to server
+    # -----------------------------------------------------

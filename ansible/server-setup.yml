@@ -1,0 +1,55 @@
+# ---------------------------------------------------------
+# Team 18 - Ansible Playbook (Server)
+# Members:
+#     - Shawn Fallon
+#     - Luke Jones
+#     - Ivan Sanchez
+#     - Pablo Serrano
+#     - Youhan Xia
+# Description:
+#   This playbook sets all the basics required to execute
+#  and store tweets using our harvester. The data will be
+#  save in a CouchDB instance and displayed using a web
+#  application.
+# ---------------------------------------------------------
+- hosts: servers
+  remote_user: ubuntu
+  sudo: yes
+  tasks:
+    # -----------------------------------------------------
+    # update apt-get database
+    - name: apt-get upadate db
+      shell: sudo apt-get update
+      ignore_errors: True
+    # -----------------------------------------------------
+    # install couchdb
+    - name: install couchdb
+      apt: pkg=couchdb state=installed
+    - name: check couchdb is running
+      service: name=couchdb state=started enabled=yes
+    # -----------------------------------------------------
+    # install tomcat 7
+    - name: install default jre
+      apt: pkg=default-jre state=installed
+    - name: install apache tomcat
+      apt: pkg=tomcat7 state=installed
+    - name: check tomcat is running
+      service: name=tomcat7 state=started enabled=yes
+    # -----------------------------------------------------
+    # install nodejs
+    - name: install nodejs
+      apt: pkg=nodejs state=installed
+    - name: install npm
+      apt: pkg=npm state=installed
+    - name: add cors to couchdb
+      shell: npm install -g add-cors-to-couchdb
+      ignore_errors: True
+    # -----------------------------------------------------
+    # install sentimental analysis tools
+    - name: install nltk
+      shell: pip install -U nltk
+    - name: install textblob
+      shell: pip install -U textblob
+    - name: install corpora plugin
+      shell: python -m textblob.download_corpora
+    # -----------------------------------------------------

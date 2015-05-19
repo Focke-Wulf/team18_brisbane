@@ -1,0 +1,22 @@
+# ---------------------------------------------------------
+# Team 18 - Ansible Host file
+# Members:
+#    - Shawn Fallon
+#    - Luke Jones
+#    - Ivan Sanchez
+#    - Pablo Serrano
+#    - Youhan Xia
+# Description:
+#   This is a host list with all the virtual machines
+#  involved in our network. The machines are separated
+#  into two groups, one for the servers and other for
+#  the harvesters.
+# ---------------------------------------------------------
+
+# Nectar network
+[servers]
+144.6.227.218
+
+[harvesters]
+144.6.227.98
+
